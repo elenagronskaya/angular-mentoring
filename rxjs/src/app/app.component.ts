@@ -4,7 +4,6 @@ import {
   filter,
   forkJoin,
   map,
-  mergeMap,
   Observable,
   Subject,
   Subscription,
@@ -39,9 +38,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
   initCharacterEvents(): void {
     this.charactersResults$ = this.searchTermByCharacters
-      .pipe(filter(searchText => searchText.length > 3), 
+      .pipe(filter(searchText => searchText.length > 2), 
         debounceTime(500),
-        mergeMap((searchText) => this.mockDataService.getCharacters(searchText))
+        switchMap((searchText) => this.mockDataService.getCharacters(searchText))
         )
   }
 
